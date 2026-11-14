@@ -266,6 +266,13 @@ footer a:hover{text-decoration:underline}
 .ag-row.mine .ag-tag{background:var(--p-deep);color:var(--p-metal-lt);border-color:var(--p-key)}
 .ag-row:not(.mine){opacity:.62}
 .ag-row:not(.mine):hover{opacity:1;background:var(--p-panel)}
+/* AGENDA-CSS-START */
+.ag-actions{display:flex;gap:8px;align-items:center;justify-content:flex-end;flex-wrap:wrap}
+.ag-ticket{font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:6px 12px;border-radius:2px;background:var(--p-key);color:#fff;border:1px solid var(--p-key);text-decoration:none;white-space:nowrap}
+.ag-ticket.off{background:transparent;color:var(--p-metal);border-color:var(--p-line)}
+.ag-row:not(.mine) .ag-ticket{opacity:.9}
+@media(max-width:560px){.ag-actions{justify-content:flex-start;margin-top:7px}.ag-tag{margin-top:0}}
+/* AGENDA-CSS-END */
 .ag-note{text-align:center;margin-top:28px;color:var(--p-metal);font-style:italic;font-size:15px}
 
 /* ═══ MAILING LIST ═══ */
@@ -466,56 +473,151 @@ footer a:hover{text-decoration:underline}
     <div class="ag">
       <div class="ag-row mine">
         <div class="ag-date">19 Jan 2027</div>
-        <div><div class="ag-venue">Café Galao</div><div class="ag-city">Stuttgart · Germany</div></div>
-        <a class="ag-tag" href="/cello_storm">Cello Storm</a>
+        <div><div class="ag-venue">Café Galao</div><div class="ag-city">Stuttgart · Germany · 20:30</div><div class="ag-city">Free entry · donations welcome</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/cello_storm">Cello Storm</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/cello-storm-in-stuttgart-cello-rock-pop-tickets-2004357628623" target="_blank" rel="noopener">Reserve</a></div>
       </div>
       <div class="ag-row mine">
-        <div class="ag-date">22 Jan 2027</div>
-        <div><div class="ag-venue">Kulturbrücken Jungbusch</div><div class="ag-city">Mannheim · Germany</div></div>
-        <a class="ag-tag" href="/cello_storm">Cello Storm</a>
+        <div class="ag-date">26 Jan 2027</div>
+        <div><div class="ag-venue">PARKS im Stadtpark</div><div class="ag-city">Nuremberg · Germany · 19:30</div><div class="ag-city">With 5 Seconds to Move</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/cello_storm">Cello Storm</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/cello-storm-in-nurnberg-cello-rock-pop-tickets-2003761313027" target="_blank" rel="noopener">Tickets</a></div>
       </div>
       <div class="ag-row">
-        <div class="ag-date">26 Jan 2027</div>
-        <div><div class="ag-venue">PARKS im Stadtpark</div><div class="ag-city">Nuremberg · Germany</div></div>
-        <a class="ag-tag" href="/epic_scores">Epic Scores</a>
+        <div class="ag-date">27 Jan 2027</div>
+        <div><div class="ag-venue">PARKS im Stadtpark</div><div class="ag-city">Nuremberg · Germany · 19:30</div><div class="ag-city">With 5 Seconds to Move</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/epic_scores">Epic Scores</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/epic-scores-live-in-nurnberg-film-game-musik-live-tickets-2003761322054" target="_blank" rel="noopener">Tickets</a></div>
       </div>
       <div class="ag-row mine">
-        <div class="ag-date">27 Jan 2027</div>
-        <div><div class="ag-venue">PARKS im Stadtpark</div><div class="ag-city">Nuremberg · Germany</div></div>
-        <a class="ag-tag" href="/cello_storm">Cello Storm</a>
+        <div class="ag-date">28 Jan 2027</div>
+        <div><div class="ag-venue">Klub FAMU</div><div class="ag-city">Prague · Czech Republic · 19:00</div><div class="ag-city">Feat. Taste The Lemon · entry €12 (300 Kč) at the door, free reservation online</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/cello_storm">Cello Storm</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/cello-storm-in-prague-cello-rock-pop-tickets-2004818481045" target="_blank" rel="noopener">Reserve</a></div>
       </div>
       <div class="ag-row mine">
         <div class="ag-date">30 Jan 2027</div>
-        <div><div class="ag-venue">Zimmer 16</div><div class="ag-city">Berlin · Germany</div></div>
-        <a class="ag-tag" href="/cello_storm">Cello Storm</a>
+        <div><div class="ag-venue">Zimmer 16</div><div class="ag-city">Berlin · Germany · 20:00</div><div class="ag-city">With 5 Seconds to Move</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/cello_storm">Cello Storm</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/cello-storm-in-berlin-cello-rock-pop-tickets-2003761325063" target="_blank" rel="noopener">Tickets</a></div>
+      </div>
+      <div class="ag-row mine">
+        <div class="ag-date">31 Jan 2027</div>
+        <div><div class="ag-venue">Fazenda da Esperança – Gut Neuhof</div><div class="ag-city">Nauen · Germany · 18:00</div><div class="ag-city">With 5 Seconds to Move</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/cello_storm">Cello Storm</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/cello-storm-in-nauen-cello-rock-pop-tickets-2004491559213" target="_blank" rel="noopener">Reserve</a></div>
       </div>
       <div class="ag-row">
-        <div class="ag-date">05 Feb 2027</div>
-        <div><div class="ag-venue">Chapelle Notre-Dame de la Réconciliation</div><div class="ag-city">Lille · France</div></div>
-        <a class="ag-tag" href="/romantic_cello">Romantic Cello</a>
+        <div class="ag-date">03 Feb 2027</div>
+        <div><div class="ag-venue">Cellebroederskapel</div><div class="ag-city">Maastricht · Netherlands · 19:30</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/romantic_cello">Romantic Cello</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/romantic-cello-in-maastricht-solocello-orkestbegeleiding-tickets-2001316669031" target="_blank" rel="noopener">Tickets</a></div>
+      </div>
+      <div class="ag-row">
+        <div class="ag-date">04 Feb 2027</div>
+        <div><div class="ag-venue">Christusgemeente (VPKB Antwerpen-Oost)</div><div class="ag-city">Antwerp · Belgium · 20:00</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/romantic_cello">Romantic Cello</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/romantic-cello-in-antwerpen-solocello-orkestbegeleiding-tickets-2003146117962" target="_blank" rel="noopener">Tickets</a></div>
+      </div>
+      <div class="ag-row">
+        <div class="ag-date">07 Feb 2027</div>
+        <div><div class="ag-venue">The Cavendish Arms</div><div class="ag-city">London · United Kingdom · 15:00</div><div class="ag-city">With Xylaroo</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/romantic_cello">Romantic Cello</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/romantic-cello-in-london-with-xylaroo-solo-cello-orchestral-arrangements-tickets-2004359108048" target="_blank" rel="noopener">Tickets</a></div>
+      </div>
+      <div class="ag-row mine">
+        <div class="ag-date">11 Feb 2027</div>
+        <div><div class="ag-venue">Chapel Street Arts Centre</div><div class="ag-city">Derby · United Kingdom · 19:30</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/cello_storm">Cello Storm</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/cello-storm-in-derby-cello-rock-pop-tickets-2004360691785" target="_blank" rel="noopener">Tickets</a></div>
+      </div>
+      <div class="ag-row">
+        <div class="ag-date">13 Feb 2027</div>
+        <div><div class="ag-venue">Matt &amp; Phred&#x27;s</div><div class="ag-city">Manchester · United Kingdom · 19:00</div><div class="ag-city">Tickets via the venue — link coming soon</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/romantic_cello">Romantic Cello</a> <span class="ag-ticket off">Via venue</span></div>
       </div>
       <div class="ag-row mine">
         <div class="ag-date">15 Feb 2027</div>
-        <div><div class="ag-venue">The Brunswick</div><div class="ag-city">Brighton · United Kingdom</div></div>
-        <a class="ag-tag" href="/cello_storm">Cello Storm</a>
+        <div><div class="ag-venue">The Brunswick</div><div class="ag-city">Hove (Brighton) · United Kingdom · 19:30</div><div class="ag-city">With 5 Seconds to Move</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/cello_storm">Cello Storm</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/cello-storm-in-brighton-cello-rock-pop-tickets-2004359096012" target="_blank" rel="noopener">Tickets</a></div>
+      </div>
+      <div class="ag-row">
+        <div class="ag-date">16 Feb 2027</div>
+        <div><div class="ag-venue">Tom Thumb Theatre</div><div class="ag-city">Margate · United Kingdom · 19:30</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/romantic_cello">Romantic Cello</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/romantic-cello-in-margate-solo-cello-orchestral-arrangements-tickets-2004360712848" target="_blank" rel="noopener">Tickets</a></div>
       </div>
       <div class="ag-row">
         <div class="ag-date">18 Feb 2027</div>
-        <div><div class="ag-venue">La Salle Verte</div><div class="ag-city">Dover · United Kingdom</div></div>
-        <a class="ag-tag" href="/epic_scores">Epic Scores</a>
+        <div><div class="ag-venue">La Salle Verte</div><div class="ag-city">Dover · United Kingdom · 19:00</div><div class="ag-city">With 5 Seconds to Move</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/epic_scores">Epic Scores</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/epic-scores-live-in-dover-film-game-music-live-tickets-2004491808960" target="_blank" rel="noopener">Reserve</a></div>
       </div>
       <div class="ag-row">
-        <div class="ag-date">20 Mar 2027</div>
-        <div><div class="ag-venue">Glück ist Jetzt</div><div class="ag-city">Frankfurt · Germany</div></div>
-        <a class="ag-tag" href="/home">All three</a>
+        <div class="ag-date">20 Feb 2027</div>
+        <div><div class="ag-venue">Le Repère de Torcy</div><div class="ag-city">Torcy · France</div><div class="ag-city">With 5 Seconds to Move</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/epic_scores">Epic Scores</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/epic-scores-live-a-torcy-musiques-de-films-et-de-jeux-en-direct-tickets-2004811843191" target="_blank" rel="noopener">Reserve</a></div>
       </div>
       <div class="ag-row">
-        <div class="ag-date">28–30 Mar 2027</div>
-        <div><div class="ag-venue">Oratorio di Firenze — mini festival</div><div class="ag-city">Florence · Italy</div></div>
-        <a class="ag-tag" href="/home">Festival</a>
+        <div class="ag-date">23 Feb 2027</div>
+        <div><div class="ag-venue">Macareu</div><div class="ag-city">Porto · Portugal · 21:00</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/romantic_cello">Romantic Cello</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/romantic-cello-no-porto-violoncelo-solo-arranjos-orquestrais-tickets-2004490063740" target="_blank" rel="noopener">Reserve</a></div>
+      </div>
+      <div class="ag-row">
+        <div class="ag-date">24 Feb 2027</div>
+        <div><div class="ag-venue">Macareu</div><div class="ag-city">Porto · Portugal · 21:00</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/epic_scores">Epic Scores</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/epic-scores-live-no-porto-musica-de-filmes-e-jogos-ao-vivo-tickets-2004490066749" target="_blank" rel="noopener">Reserve</a></div>
+      </div>
+      <div class="ag-row mine">
+        <div class="ag-date">25 Feb 2027</div>
+        <div><div class="ag-venue">Macareu</div><div class="ag-city">Porto · Portugal · 21:00</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/cello_storm">Cello Storm</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/cello-storm-no-porto-violoncelo-rock-pop-tickets-2004490074773" target="_blank" rel="noopener">Reserve</a></div>
+      </div>
+      <div class="ag-row">
+        <div class="ag-date">10 Mar 2027</div>
+        <div><div class="ag-venue">Chapelle Notre-Dame de la Réconciliation</div><div class="ag-city">Lille · France · 20:00</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/romantic_cello">Romantic Cello</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/romantic-cello-a-lille-violoncelle-solo-arrangements-orchestraux-tickets-2004281252179" target="_blank" rel="noopener">Reserve</a></div>
+      </div>
+      <div class="ag-row mine">
+        <div class="ag-date">12 Mar 2027</div>
+        <div><div class="ag-venue">Fazenda da Esperança – Kloster Mörmter</div><div class="ag-city">Xanten · Germany · 18:00</div><div class="ag-city">With 5 Seconds to Move</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/cello_storm">Cello Storm</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/cello-storm-in-xanten-cello-rock-pop-tickets-2004491111875" target="_blank" rel="noopener">Reserve</a></div>
+      </div>
+      <div class="ag-row">
+        <div class="ag-date">13 Mar 2027</div>
+        <div><div class="ag-venue">Unperfekthaus</div><div class="ag-city">Essen · Germany · 19:00</div><div class="ag-city">With 5 Seconds to Move</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/epic_scores">Epic Scores</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/epic-scores-live-in-essen-film-game-musik-live-tickets-2003761330078" target="_blank" rel="noopener">Tickets</a></div>
+      </div>
+      <div class="ag-row mine">
+        <div class="ag-date">14 Mar 2027</div>
+        <div><div class="ag-venue">Unperfekthaus</div><div class="ag-city">Essen · Germany · 19:00</div><div class="ag-city">With 5 Seconds to Move</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/cello_storm">Cello Storm</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/cello-storm-in-essen-cello-rock-pop-tickets-2003761336096" target="_blank" rel="noopener">Tickets</a></div>
+      </div>
+      <div class="ag-row">
+        <div class="ag-date">15 Mar 2027</div>
+        <div><div class="ag-venue">Unperfekthaus</div><div class="ag-city">Essen · Germany · 19:00</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/romantic_cello">Romantic Cello</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/romantic-cello-in-essen-solo-cello-orchesterarrangements-tickets-2004281771733" target="_blank" rel="noopener">Tickets</a></div>
+      </div>
+      <div class="ag-row">
+        <div class="ag-date">16 Mar 2027</div>
+        <div><div class="ag-venue">Péniche La Légia</div><div class="ag-city">Liège · Belgium · 20:00</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/romantic_cello">Romantic Cello</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/romantic-cello-a-liege-violoncelle-solo-arrangements-orchestraux-tickets-2003761340108" target="_blank" rel="noopener">Tickets</a></div>
+      </div>
+      <div class="ag-row">
+        <div class="ag-date">17 Mar 2027</div>
+        <div><div class="ag-venue">Péniche La Légia</div><div class="ag-city">Liège · Belgium · 20:00</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/epic_scores">Epic Scores</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/epic-scores-live-a-liege-musiques-de-films-et-de-jeux-en-direct-tickets-2003761345123" target="_blank" rel="noopener">Tickets</a></div>
+      </div>
+      <div class="ag-row mine">
+        <div class="ag-date">18 Mar 2027</div>
+        <div><div class="ag-venue">Péniche La Légia</div><div class="ag-city">Liège · Belgium · 20:00</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/cello_storm">Cello Storm</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/cello-storm-a-liege-violoncelle-rock-pop-tickets-2003761377219" target="_blank" rel="noopener">Tickets</a></div>
+      </div>
+      <div class="ag-row mine">
+        <div class="ag-date">19 Mar 2027</div>
+        <div><div class="ag-venue">Frankfurter Salon</div><div class="ag-city">Frankfurt · Germany · 19:30</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/cello_storm">Cello Storm</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/cello-storm-in-frankfurt-cello-rock-pop-tickets-2003146110941" target="_blank" rel="noopener">Reserve</a></div>
+      </div>
+      <div class="ag-row mine">
+        <div class="ag-date">25 Mar 2027</div>
+        <div><div class="ag-venue">Agropolis – Cascina Marasco</div><div class="ag-city">Cremona · Italy · 21:00</div><div class="ag-city">Part of Luce &amp; Legno Fest — a sound bridge between Brazil and Italy</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/cello_storm">Cello Storm</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/cello-storm-a-cremona-luce-legno-fest-tickets-2004811833161" target="_blank" rel="noopener">Reserve</a></div>
+      </div>
+      <div class="ag-row mine">
+        <div class="ag-date">28 Mar 2027</div>
+        <div><div class="ag-venue">Auditorium Santa Croce al Tempio</div><div class="ag-city">Florence · Italy · 19:30</div><div class="ag-city">Part of Luce &amp; Legno Fest — a sound bridge between Brazil and Italy</div></div>
+        <div class="ag-actions"><a class="ag-tag" href="/cello_storm">Cello Storm</a> <a class="ag-ticket" href="https://www.eventbrite.pt/e/cello-storm-a-firenze-luce-legno-fest-tickets-2004810293556" target="_blank" rel="noopener">Reserve</a></div>
       </div>
     </div>
-    <p class="ag-note">European Tour · 20 January – 30 March 2027. <strong>Cello Storm</strong> dates are
+    <p class="ag-note">European Tour · 19 January – 28 March 2027. <strong>Cello Storm</strong> dates are
       highlighted; the rest of the tour is shown for context. More dates announced regularly.</p>
     <div class="btn-row" style="justify-content:center;margin-top:24px">
       <a class="btn" href="https://bnds.us/ig15j9" target="_blank" rel="noopener">All dates on Bandsintown</a>
