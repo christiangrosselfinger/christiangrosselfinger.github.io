@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support Christian Grosselfinger</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #F7F2E8;
+      --surface:  #EFEAD8;
+      --border:   #D6C9AE;
+      --brown:    #7A4F2E;
+      --brown-dk: #5C3820;
+      --gold:     #C49A35;
+      --text:     #3A2A1A;
+      --muted:    #8A7060;
+    }
+
+    html { min-height: 100%; background: #E8E0D0; font-family: 'Inter', sans-serif; }
+
+    body { min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+
+    .card {
+      width: 100%; max-width: 460px; background: var(--bg); color: var(--text);
+      display: flex; flex-direction: column; align-items: center;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.18); min-height: 100vh;
+    }
+
+    @media (min-width: 480px) {
+      body { padding: 40px 20px; background: #D8CFC0; }
+      .card { border-radius: 20px; min-height: auto; overflow: hidden; }
+    }
+
+    /* ── Header ── */
+    .page-header {
+      width: 100%; background: linear-gradient(135deg, #5C3820, #7A4F2E);
+      padding: 32px 24px 24px; text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+
+    .page-header img { width: 200px; height: auto; filter: drop-shadow(0 2px 10px rgba(0,0,0,0.4)); }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.5rem; font-weight: 600; color: var(--gold); letter-spacing: 0.04em; margin-top: 4px;
+    }
+
+    /* ── Content ── */
+    .content {
+      width: 100%; max-width: 420px; padding: 32px 20px 64px;
+      display: flex; flex-direction: column; align-items: center;
+    }
+
+    .tagline {
+      font-size: 0.88rem; color: var(--muted); text-align: center;
+      max-width: 320px; line-height: 1.65;
+    }
+
+    .divider { width: 50px; height: 1px; background: var(--border); margin: 24px auto; }
+
+    .section-label {
+      font-size: 0.68rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); text-align: center; margin-bottom: 14px; width: 100%;
+    }
+
+    .links { width: 100%; display: flex; flex-direction: column; gap: 11px; }
+
+    .link-btn {
+      display: flex; align-items: center; gap: 14px; padding: 13px 18px;
+      border-radius: 12px; background: var(--surface); border: 1px solid var(--border);
+      text-decoration: none; color: var(--text); font-size: 0.95rem;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .link-btn:active { transform: scale(0.975); background: var(--border); }
+
+    @media (hover: hover) {
+      .link-btn:hover { background: var(--border); border-color: var(--brown); transform: translateY(-1px); }
+    }
+
+    .link-btn .icon {
+      width: 38px; height: 38px; border-radius: 9px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+
+    .link-btn .icon svg { width: 22px; height: 22px; }
+    .link-btn .label { flex: 1; }
+    .link-btn .label strong { display: block; font-weight: 500; font-size: 0.95rem; }
+    .link-btn .label span { font-size: 0.76rem; color: var(--muted); }
+    .link-btn .arrow { color: var(--border); font-size: 1rem; flex-shrink: 0; }
+
+    .donate-btn {
+      background: linear-gradient(135deg, #8B5E1A, #C49A35);
+      border-color: #C49A35; color: #fff;
+    }
+
+    .donate-btn .label strong { color: #fff; }
+    .donate-btn .label span { color: rgba(255,255,255,0.75); }
+    .donate-btn:active { background: linear-gradient(135deg, #7A5015, #B08A28); }
+
+    @media (hover: hover) {
+      .donate-btn:hover {
+        background: linear-gradient(135deg, #9D6C20, #D4AA40);
+        border-color: #D4AA40; transform: translateY(-1px);
+      }
+    }
+
+    /* ── Notice box ── */
+    .notice {
+      width: 100%; background: #FFF8E6; border: 1px solid #E8C96A;
+      border-radius: 10px; padding: 14px 16px; font-size: 0.82rem;
+      color: #7A5A10; line-height: 1.55; text-align: center;
+    }
+
+    /* ── Copy cards ── */
+    .copy-card {
+      width: 100%; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 13px 18px; display: flex; flex-direction: column; gap: 10px;
+    }
+
+    .copy-card-header { display: flex; align-items: center; gap: 14px; }
+
+    .copy-row {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px;
+    }
+
+    .copy-text {
+      flex: 1; font-size: 0.76rem; font-family: 'Courier New', monospace;
+      letter-spacing: 0.03em; color: var(--brown-dk); word-break: break-all; min-width: 0;
+    }
+
+    .copy-btn {
+      flex-shrink: 0; background: var(--brown); color: #fff; border: none;
+      border-radius: 6px; padding: 7px 0; width: 72px; text-align: center;
+      font-size: 0.8rem; font-weight: 500; cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      -webkit-tap-highlight-color: transparent; font-family: 'Inter', sans-serif;
+    }
+
+    .copy-btn:active { transform: scale(0.95); }
+    .copy-btn.copied { background: #4CAF50; }
+
+    .ic-paypal { background: #003087; }
+    .ic-bank   { background: var(--brown); }
+
+    /* ── Back & footer ── */
+    .back-link {
+      margin-top: 28px; font-size: 0.78rem; color: var(--muted);
+      cursor: pointer; background: none; border: none; padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .footer {
+      margin-top: 32px; font-size: 0.72rem; color: var(--border);
+      text-align: center; letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+<div class="card">
+
+  <div class="page-header">
+    <img src="https://static.wixstatic.com/media/7fc9f2_310fee838cce4d51806d3841a1a22d2a~mv2.png" alt="Christian Grosselfinger" />
+    <p class="page-title">Support the Artist</p>
+  </div>
+
+  <div class="content">
+
+    <p class="tagline">Thank you so much for wanting to support me! Choose whichever method works best for you.</p>
+
+    <div class="divider"></div>
+
+    <!-- PAYPAL BUTTON -->
+    <p class="section-label" style="color: var(--gold);">Pay with PayPal</p>
+    <div class="links">
+      <a class="link-btn donate-btn" href="https://www.paypal.com/donate/?business=chriskomposer%40hotmail.com&currency_code=EUR" target="_blank" rel="noopener">
+        <span class="icon ic-paypal">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M7.076 21.337H2.47a.641.641 0 01-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 00-.607-.541c-.013.076-.026.175-.041.254-.59 3.025-2.566 6.082-8.558 6.082H9.828l-1.167 7.398h3.32l.924-5.832h2.19c4.906 0 7.498-2.804 8.127-7.36z"/></svg>
+        </span>
+        <span class="label">
+          <strong>Donate via PayPal</strong>
+          <span>Tap to open PayPal — choose your amount</span>
+        </span>
+        <span class="arrow" style="color:#fff;opacity:0.7;">›</span>
+      </a>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- MANUAL PAYPAL -->
+    <p class="section-label">If the PayPal link doesn't open</p>
+    <div class="notice">
+      Open the <strong>PayPal app</strong> yourself and send any amount to this email:
+    </div>
+    <div style="margin-top: 10px; width: 100%;">
+      <div class="copy-card">
+        <div class="copy-card-header">
+          <span class="icon ic-paypal">
+            <svg viewBox="0 0 24 24" fill="white"><path d="M7.076 21.337H2.47a.641.641 0 01-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 00-.607-.541c-.013.076-.026.175-.041.254-.59 3.025-2.566 6.082-8.558 6.082H9.828l-1.167 7.398h3.32l.924-5.832h2.19c4.906 0 7.498-2.804 8.127-7.36z"/></svg>
+          </span>
+          <div class="label">
+            <strong>PayPal email</strong>
+            <span>Copy and paste in your PayPal app</span>
+          </div>
+        </div>
+        <div class="copy-row">
+          <span class="copy-text" id="ppEmail">chriskomposer@hotmail.com</span>
+          <button class="copy-btn" id="copyPP" onclick="copyText('ppEmail','copyPP')">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- BANK TRANSFER -->
+    <p class="section-label">Bank Transfer</p>
+    <div class="copy-card">
+      <div class="copy-card-header">
+        <span class="icon ic-bank">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M11.5 1L2 6v2h19V6L11.5 1zM6 10v7H4v2h16v-2h-2v-7h-2v7h-2v-7h-2v7H9v-7H6zm-2 9v2H4v-2h2zm14 0v2h-2v-2h2z"/></svg>
+        </span>
+        <div class="label">
+          <strong>Bank Transfer</strong>
+          <span>IBAN — tap to copy</span>
+        </div>
+      </div>
+      <div class="copy-row">
+        <span class="copy-text" id="ibanText">PT50 0023 0000 45425260051 94</span>
+        <button class="copy-btn" id="copyIBANBtn" onclick="copyText('ibanText','copyIBANBtn')">Copy</button>
+      </div>
+    </div>
+
+    <button class="back-link" onclick="goBack()">← Back to main page</button>
+
+    <p class="footer">christiangrosselfinger.com</p>
+
+  </div>
+</div>
+
+<script>
+  function copyText(textId, btnId) {
+    var text = document.getElementById(textId).textContent.trim();
+    var btn = document.getElementById(btnId);
+    var ok = function() {
+      btn.textContent = 'Copied!'; btn.classList.add('copied');
+      setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2500);
+    };
+    var fail = function() { btn.textContent = 'Error'; };
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(text).then(ok, fail);
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+      document.body.appendChild(ta); ta.focus(); ta.select();
+      try { document.execCommand('copy'); ok(); } catch(e) { fail(); }
+      document.body.removeChild(ta);
+    }
+  }
+
+  function goBack() {
+    /* Update this URL to your live Wix busking page URL when deployed */
+    window.location.href = '/busking/';
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Christian Grosselfinger — Cellist</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #F7F2E8;
+      --surface:  #EFEAD8;
+      --border:   #D6C9AE;
+      --brown:    #7A4F2E;
+      --brown-dk: #5C3820;
+      --gold:     #C49A35;
+      --text:     #3A2A1A;
+      --muted:    #8A7060;
+    }
+
+    html {
+      min-height: 100%;
+      background: #E8E0D0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0;
+    }
+
+    /* ── Page card (desktop) ── */
+    .card {
+      width: 100%;
+      max-width: 460px;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 8px 48px rgba(0,0,0,0.18);
+      min-height: 100vh;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      width: 100%;
+      position: relative;
+      height: 70svh;
+      min-height: 300px;
+      max-height: 500px;
+      overflow: hidden;
+      flex-shrink: 0;
+      border-radius: 0;
+    }
+
+    @media (min-width: 480px) {
+      body { padding: 40px 20px; background: #D8CFC0; }
+      .card { border-radius: 20px; min-height: auto; overflow: hidden; }
+    }
+
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.05) 0%,
+        rgba(0,0,0,0.0)  30%,
+        rgba(30,15,5,0.55) 72%,
+        rgba(30,15,5,0.88) 100%
+      );
+    }
+
+    .hero-text {
+      position: absolute;
+      bottom: 24px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      padding: 0 24px;
+    }
+
+    .hero-logo {
+      width: 100%;
+      max-width: 320px;
+      height: auto;
+      filter: drop-shadow(0 2px 12px rgba(0,0,0,0.5));
+    }
+
+    /* ── Main content ── */
+    .content {
+      width: 100%;
+      max-width: 420px;
+      padding: 32px 20px 64px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .tagline {
+      font-size: 0.9rem;
+      color: var(--muted);
+      text-align: center;
+      max-width: 300px;
+      line-height: 1.65;
+      letter-spacing: 0.01em;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      width: 50px;
+      height: 1px;
+      background: var(--border);
+      margin: 28px auto;
+    }
+
+    /* ── Portrait accent ── */
+    .portrait {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 3px solid var(--gold);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.14);
+      margin-bottom: 20px;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 14px;
+      width: 100%;
+    }
+
+    /* ── Link buttons ── */
+    .links {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+
+    .link-btn {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 13px 18px;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.95rem;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .link-btn:active {
+      transform: scale(0.975);
+      background: var(--border);
+    }
+
+    @media (hover: hover) {
+      .link-btn:hover {
+        background: var(--border);
+        border-color: var(--brown);
+        transform: translateY(-1px);
+      }
+    }
+
+    .link-btn .icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .link-btn .icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .link-btn .icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .link-btn .label { flex: 1; }
+    .link-btn .label strong { display: block; font-weight: 500; font-size: 0.95rem; }
+    .link-btn .label span  { font-size: 0.76rem; color: var(--muted); }
+
+    .link-btn .arrow { color: var(--border); font-size: 1rem; flex-shrink: 0; }
+
+    /* ── Donate button ── */
+    .donate-btn {
+      background: linear-gradient(135deg, #8B5E1A, #C49A35);
+      border-color: #C49A35;
+      color: #fff;
+    }
+
+    .donate-btn .label strong { color: #fff; }
+    .donate-btn .label span  { color: rgba(255,255,255,0.75); }
+
+    .donate-btn:active { background: linear-gradient(135deg, #7A5015, #B08A28); }
+
+    @media (hover: hover) {
+      .donate-btn:hover {
+        background: linear-gradient(135deg, #9D6C20, #D4AA40);
+        border-color: #D4AA40;
+        transform: translateY(-1px);
+      }
+    }
+
+    /* ── Bank card ── */
+    .bank-card {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 13px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .bank-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .iban-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .iban-text {
+      flex: 1;
+      font-size: 0.76rem;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.03em;
+      color: var(--brown-dk);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
+    }
+
+    .copy-btn {
+      flex-shrink: 0;
+      background: var(--brown);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 7px 0;
+      width: 72px;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+      -webkit-tap-highlight-color: transparent;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .copy-btn:active { transform: scale(0.95); }
+    .copy-btn.copied  { background: #4CAF50; }
+
+    /* Platform icon backgrounds */
+    .ic-paypal { background: #003087; }
+    .ic-bank   { background: var(--brown); }
+    .ic-spotify   { background: #1DB954; }
+    .ic-youtube   { background: #FF0000; }
+    .ic-instagram { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+    .ic-apple     { background: #FC3C44; }
+    .ic-patreon   { background: #FF424D; }
+    .ic-bandcamp  { background: #1DA0C3; }
+    .ic-tiktok    { background: #010101; }
+    .ic-facebook  { background: #1877F2; }
+    .ic-whatsapp  { background: #25D366; }
+    .ic-web       { background: var(--brown); }
+
+    /* ── Footer ── */
+    .footer {
+      margin-top: 40px;
+      font-size: 0.72rem;
+      color: var(--border);
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+
+  <!-- Hero photo -->
+  <div class="hero">
+    <img src="https://static.wixstatic.com/media/7fc9f2_5b9e0049f0534814aedcf02be276f770~mv2.jpg" alt="Christian Grosselfinger playing cello on the street" />
+    <div class="hero-overlay"></div>
+    <div class="hero-text">
+      <img class="hero-logo" src="https://static.wixstatic.com/media/7fc9f2_310fee838cce4d51806d3841a1a22d2a~mv2.png" alt="Christian Grosselfinger" />
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="content">
+
+    <p class="tagline">You just heard me play live on the street. Thanks for stopping — here's where you can find my music.</p>
+
+    <div class="divider"></div>
+
+    <!-- SUPPORT -->
+    <p class="section-label" style="color: var(--gold); letter-spacing: 0.16em;">Support the artist</p>
+    <div class="links">
+
+      <div class="bank-card">
+        <div class="bank-header">
+          <span class="icon ic-paypal">
+            <svg viewBox="0 0 24 24" fill="white"><path d="M7.076 21.337H2.47a.641.641 0 01-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797h-2.19c-.524 0-.968.382-1.05.9l-1.12 7.106zm14.146-14.42a3.35 3.35 0 00-.607-.541c-.013.076-.026.175-.041.254-.59 3.025-2.566 6.082-8.558 6.082H9.828l-1.167 7.398h3.32l.924-5.832h2.19c4.906 0 7.498-2.804 8.127-7.36z"/></svg>
+          </span>
+          <div class="label">
+            <strong>Donate via PayPal</strong>
+            <span>Open PayPal app → Send to this email</span>
+          </div>
+        </div>
+        <div class="iban-row">
+          <span class="iban-text" id="ppEmail">chriskomposer@hotmail.com</span>
+          <button class="copy-btn" onclick="copyPayPal()" id="copyPPBtn">Copy</button>
+        </div>
+      </div>
+
+      <!-- Bank Transfer -->
+      <div class="bank-card">
+        <div class="bank-header">
+          <span class="icon ic-bank">
+            <svg viewBox="0 0 24 24" fill="white"><path d="M11.5 1L2 6v2h19V6L11.5 1zM6 10v7H4v2h16v-2h-2v-7h-2v7h-2v-7h-2v7H9v-7H6zm-2 9v2H4v-2h2zm14 0v2h-2v-2h2z"/></svg>
+          </span>
+          <div class="label">
+            <strong>Bank Transfer</strong>
+            <span>IBAN — tap to copy</span>
+          </div>
+        </div>
+        <div class="iban-row">
+          <span class="iban-text" id="iban">PT50 0023 0000 45425260051 94</span>
+          <button class="copy-btn" onclick="copyIban()" id="copyBtn">Copy</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- BUY A RECORDING -->
+    <p class="section-label" style="color: var(--brown-dk); letter-spacing: 0.16em;">Buy a recording — €1 each</p>
+    <p class="tagline" style="margin-bottom: 16px;">Pick any song from my list, pay via PayPal or bank transfer, and I'll email you the audio file.</p>
+    <div class="links">
+      <a class="link-btn" href="/songs/" target="_blank" rel="noopener" style="border-color: var(--gold);">
+        <span class="icon" style="background: var(--gold); font-size: 1.2rem; width:38px; height:38px; border-radius:9px; display:flex; align-items:center; justify-content:center;">♪</span>
+        <span class="label">
+          <strong>Browse &amp; order recordings</strong>
+          <span>40 songs — €1 each — sent by email</span>
+        </span>
+        <span class="arrow">›</span>
+      </a>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Portrait accent -->
+    <img class="portrait" src="https://static.wixstatic.com/media/7fc9f2_eb601d730b924978b35ef0e78e45fb29~mv2.jpg" alt="Christian Grosselfinger" />
+
+    <!-- FOLLOW -->
+    <p class="section-label">Follow</p>
+    <div class="links">
+
+      <a class="link-btn" href="https://instagram.com/iamchrisgrosselfinger" target="_blank" rel="noopener">
+        <span class="icon ic-instagram">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </span>
+        <span class="label">
+          <strong>Instagram</strong>
+          <span>@iamchrisgrosselfinger</span>
+        </span>
+        <span class="arrow">›</span>
+      </a>
+
+      <a class="link-btn" href="https://wa.me/393246097709?text=Hi%2C%20I%20met%20you%20busking" target="_blank" rel="noopener">
+        <span class="icon ic-whatsapp">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M12.001 2c-5.523 0-10 4.477-10 10 0 1.76.46 3.481 1.333 4.994L2 22l5.233-1.37a9.934 9.934 0 004.768 1.218h.005c5.522 0 10-4.477 10-10S17.524 2 12.001 2zm0 18.26a8.3 8.3 0 01-4.219-1.158l-.303-.18-3.136.822.838-3.06-.198-.315a8.26 8.26 0 01-1.27-4.405c0-4.575 3.722-8.297 8.293-8.297 4.572 0 8.293 3.722 8.293 8.297 0 4.576-3.72 8.296-8.298 8.296z"/><path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.1-.472-.15-.671.15-.197.295-.771.966-.944 1.164-.175.195-.349.21-.646.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.136-.135.301-.345.451-.523.146-.181.194-.301.297-.496.1-.21.049-.375-.025-.524-.075-.15-.672-1.62-.922-2.206-.24-.584-.487-.51-.672-.51-.172-.015-.371-.015-.571-.015-.2 0-.523.074-.797.359-.273.3-1.045 1.02-1.045 2.475s1.07 2.865 1.219 3.075c.149.195 2.105 3.195 5.1 4.485.714.3 1.27.48 1.704.629.714.227 1.365.195 1.88.121.574-.091 1.767-.721 2.016-1.426.255-.705.255-1.29.18-1.425-.074-.135-.27-.21-.57-.345z"/></svg>
+        </span>
+        <span class="label">
+          <strong>WhatsApp</strong>
+          <span>Message me directly</span>
+        </span>
+        <span class="arrow">›</span>
+      </a>
+
+      <a class="link-btn" href="https://www.youtube.com/c/ChristianGrosselfinger" target="_blank" rel="noopener">
+        <span class="icon ic-youtube">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+        </span>
+        <span class="label">
+          <strong>YouTube</strong>
+          <span>Concerts, live sessions &amp; more</span>
+        </span>
+        <span class="arrow">›</span>
+      </a>
+
+      <a class="link-btn" href="https://www.tiktok.com/@chrisgrosselfingercello" target="_blank" rel="noopener">
+        <span class="icon ic-tiktok">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
+        </span>
+        <span class="label">
+          <strong>TikTok</strong>
+          <span>@chrisgrosselfingercello</span>
+        </span>
+        <span class="arrow">›</span>
+      </a>
+
+      <a class="link-btn" href="https://m.facebook.com/christiangrosselfinger" target="_blank" rel="noopener">
+        <span class="icon ic-facebook">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </span>
+        <span class="label">
+          <strong>Facebook</strong>
+          <span>Christian Grosselfinger</span>
+        </span>
+        <span class="arrow">›</span>
+      </a>
+
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- LISTEN -->
+    <p class="section-label">Listen</p>
+    <div class="links">
+
+      <a class="link-btn" href="https://open.spotify.com/artist/0w6EcnHEJUxbB748ddGuq4" target="_blank" rel="noopener">
+        <span class="icon ic-spotify">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 17.32a.75.75 0 01-1.03.25c-2.82-1.724-6.372-2.114-10.556-1.157a.75.75 0 11-.334-1.463c4.579-1.046 8.507-.596 11.67 1.34a.75.75 0 01.25 1.03zm1.484-3.306a.937.937 0 01-1.287.308c-3.226-1.982-8.144-2.556-11.963-1.399a.937.937 0 01-.576-1.785c4.358-1.403 9.774-.722 13.518 1.59a.937.937 0 01.308 1.286zm.128-3.443c-3.868-2.297-10.248-2.508-13.942-1.388a1.125 1.125 0 11-.652-2.152c4.242-1.286 11.29-1.038 15.742 1.606a1.125 1.125 0 01-1.148 1.934z"/></svg>
+        </span>
+        <span class="label">
+          <strong>Spotify</strong>
+          <span>Stream my albums &amp; singles</span>
+        </span>
+        <span class="arrow">›</span>
+      </a>
+
+      <a class="link-btn" href="https://music.apple.com/br/artist/christian-grosselfinger/669639871?l=en" target="_blank" rel="noopener">
+        <span class="icon ic-apple">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        </span>
+        <span class="label">
+          <strong>Apple Music</strong>
+          <span>Stream on Apple Music</span>
+        </span>
+        <span class="arrow">›</span>
+      </a>
+
+      <a class="link-btn" href="https://christiangrosselfinger.bandcamp.com" target="_blank" rel="noopener">
+        <span class="icon ic-bandcamp">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M0 18.75l7.437-13.5H24l-7.438 13.5z"/></svg>
+        </span>
+        <span class="label">
+          <strong>Bandcamp</strong>
+          <span>Buy &amp; download my music</span>
+        </span>
+        <span class="arrow">›</span>
+      </a>
+
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- CONNECT -->
+    <p class="section-label">Connect</p>
+    <div class="links">
+
+      <a class="link-btn" href="https://www.christiangrosselfinger.com" target="_blank" rel="noopener">
+        <span class="icon ic-web">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        </span>
+        <span class="label">
+          <strong>Official Website</strong>
+          <span>Concerts, bio &amp; contact</span>
+        </span>
+        <span class="arrow">›</span>
+      </a>
+
+      <a class="link-btn" href="https://www.patreon.com/christiangrosselfinger" target="_blank" rel="noopener">
+        <span class="icon ic-patreon">
+          <svg viewBox="0 0 24 24" fill="white"><path d="M14.82 2.41c3.96 0 7.18 3.24 7.18 7.21 0 3.96-3.22 7.18-7.18 7.18-3.97 0-7.21-3.22-7.21-7.18 0-3.97 3.24-7.21 7.21-7.21M2 21.6h3.5V2.41H2V21.6z"/></svg>
+        </span>
+        <span class="label">
+          <strong>Support on Patreon</strong>
+          <span>Help me keep making music</span>
+        </span>
+        <span class="arrow">›</span>
+      </a>
+
+    </div>
+
+    <p class="footer">christiangrosselfinger.com</p>
+
+  </div>
+
+  </div><!-- /.card -->
+
+  <script>
+    function copyPayPal() {
+      var email = document.getElementById('ppEmail').textContent.trim();
+      var btn   = document.getElementById('copyPPBtn');
+      var ta = document.createElement('textarea');
+      ta.value = email;
+      ta.style.position = 'fixed'; ta.style.top = '0'; ta.style.left = '0'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.focus(); ta.select();
+      try {
+        document.execCommand('copy');
+        btn.textContent = 'Copied!'; btn.classList.add('copied');
+        setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2500);
+      } catch(e) { btn.textContent = 'Error'; }
+      document.body.removeChild(ta);
+    }
+
+    function copyIban() {
+      var iban = document.getElementById('iban').textContent.trim();
+      var btn  = document.getElementById('copyBtn');
+      var ta = document.createElement('textarea');
+      ta.value = iban;
+      ta.style.position = 'fixed';
+      ta.style.top = '0';
+      ta.style.left = '0';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy');
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2500);
+      } catch(e) {
+        btn.textContent = 'Error';
+      }
+      document.body.removeChild(ta);
+    }
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buy a Recording — Christian Grosselfinger</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #F7F2E8;
+      --surface:  #EFEAD8;
+      --border:   #D6C9AE;
+      --brown:    #7A4F2E;
+      --brown-dk: #5C3820;
+      --gold:     #C49A35;
+      --text:     #3A2A1A;
+      --muted:    #8A7060;
+    }
+
+    html, body { height: 100%; overflow: hidden; }
+
+    body {
+      background: var(--bg); font-family: 'Inter', sans-serif;
+      color: var(--text); display: flex; flex-direction: column;
+      align-items: center; margin: 0;
+    }
+
+    .card { width: 100%; max-width: 460px; display: flex; flex-direction: column; height: 100%; }
+
+    /* ── Header ── */
+    .page-header {
+      position: relative;
+      background: linear-gradient(135deg, #5C3820, #7A4F2E);
+      padding: 10px 16px; text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+      flex-shrink: 0;
+    }
+
+    .page-header img { width: 90px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4)); }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.15rem; font-weight: 600; color: var(--gold); letter-spacing: 0.04em; line-height: 1.2;
+    }
+
+    .page-intro { font-size: 0.72rem; color: rgba(255,255,255,0.7); line-height: 1.35; }
+
+    .back-btn {
+      position: absolute; top: 10px; left: 14px; font-size: 0.75rem; color: rgba(255,255,255,0.6);
+      background: none; border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif; padding: 0;
+    }
+
+    /* ── Song list ── */
+    .content { padding: 14px 16px 20px; flex: 1; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+
+    .category-label {
+      font-size: 0.62rem; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--muted);
+      margin: 20px 0 8px 2px; display: block;
+    }
+
+    .category-label:first-child { margin-top: 4px; }
+
+    button.song-row {
+      display: flex; align-items: center; gap: 11px;
+      padding: 10px 13px; border-radius: 10px;
+      background: var(--surface); border: 1px solid var(--border);
+      margin-bottom: 6px; cursor: pointer; width: 100%;
+      text-align: left; font-family: 'Inter', sans-serif;
+      transition: background 0.12s, border-color 0.12s;
+      -webkit-tap-highlight-color: transparent; user-select: none;
+      touch-action: manipulation; -webkit-appearance: none;
+    }
+
+    button.song-row.selected { background: #f0e8d4; border-color: var(--gold); }
+
+    .song-check {
+      width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--border);
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      transition: background 0.12s, border-color 0.12s;
+    }
+
+    button.song-row.selected .song-check { background: var(--gold); border-color: var(--gold); }
+    .song-check svg { display: none; }
+    button.song-row.selected .song-check svg { display: block; }
+
+    .song-info { flex: 1; }
+    .song-title { font-size: 0.87rem; font-weight: 500; }
+    .song-composer { font-size: 0.71rem; color: var(--muted); margin-top: 2px; }
+    .song-price { font-size: 0.77rem; color: var(--muted); flex-shrink: 0; }
+    button.song-row.selected .song-price { color: var(--gold); font-weight: 500; }
+
+    /* ── Bottom bar ── */
+    .bottom-bar {
+      flex-shrink: 0; width: 100%;
+      background: var(--bg); border-bottom: 1px solid var(--border);
+      padding: 8px 16px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.10);
+      display: flex; align-items: center; gap: 12px;
+    }
+
+    .counter { flex: 1; }
+    .counter-hint { font-size: 0.78rem; color: var(--muted); }
+    .counter-total {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 600; color: var(--brown-dk); line-height: 1.2;
+    }
+    .counter-total span { font-size: 0.76rem; color: var(--muted); font-family: 'Inter', sans-serif; font-weight: 400; margin-left: 4px; }
+
+    .send-btn {
+      background: linear-gradient(135deg, #8B5E1A, #C49A35);
+      color: #fff; border: none; border-radius: 12px;
+      padding: 10px 22px; font-family: 'Inter', sans-serif;
+      font-size: 0.9rem; font-weight: 500; cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+      -webkit-tap-highlight-color: transparent; white-space: nowrap;
+    }
+
+    .send-btn:active { transform: scale(0.97); }
+    .send-btn:disabled { opacity: 0.3; pointer-events: none; }
+
+    /* ── Modal ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.55); z-index: 100;
+      align-items: flex-end; justify-content: center;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal-sheet {
+      background: var(--bg); border-radius: 20px 20px 0 0;
+      width: 100%; max-width: 460px; padding: 28px 20px 48px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+
+    .modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 600; color: var(--brown-dk); text-align: center;
+    }
+
+    .modal-summary {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 14px;
+      font-size: 0.79rem; color: var(--muted); line-height: 1.7;
+      max-height: 130px; overflow-y: auto;
+    }
+
+    .modal-summary strong { color: var(--text); display: block; margin-bottom: 6px; font-size: 0.88rem; }
+
+    .modal-label {
+      font-size: 0.65rem; font-weight: 500; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 7px;
+    }
+
+    .modal-email-input {
+      width: 100%; padding: 13px 14px; border-radius: 10px;
+      border: 1px solid var(--border); background: var(--surface);
+      font-family: 'Inter', sans-serif; font-size: 0.95rem; color: var(--text);
+      outline: none; transition: border-color 0.15s;
+    }
+
+    .modal-email-input:focus { border-color: var(--brown); }
+    .modal-email-input::placeholder { color: var(--border); }
+
+    .modal-send-btn {
+      width: 100%; padding: 14px;
+      background: linear-gradient(135deg, #8B5E1A, #C49A35);
+      color: #fff; border: none; border-radius: 12px;
+      font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 500;
+      cursor: pointer; transition: opacity 0.15s; margin-top: 4px;
+    }
+
+    .modal-send-btn:disabled { opacity: 0.4; }
+
+    .modal-cancel {
+      background: none; border: none; font-size: 0.79rem; color: var(--muted);
+      cursor: pointer; font-family: 'Inter', sans-serif;
+      text-align: center; padding: 4px; width: 100%;
+    }
+
+    /* ── Thank you state ── */
+    .thankyou-box {
+      display: none; flex-direction: column; align-items: center;
+      gap: 12px; text-align: center; padding: 8px 0;
+    }
+
+    .check-circle {
+      width: 58px; height: 58px; border-radius: 50%; background: #4CAF50;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .thankyou-box strong { font-size: 1.1rem; color: var(--text); }
+    .thankyou-box p { font-size: 0.84rem; color: var(--muted); line-height: 1.6; max-width: 260px; }
+  </style>
+</head>
+<body>
+<div class="card">
+
+  <div class="page-header">
+    <img src="https://static.wixstatic.com/media/7fc9f2_310fee838cce4d51806d3841a1a22d2a~mv2.png" alt="Christian Grosselfinger" />
+    <p class="page-title">Buy a Recording</p>
+    <p class="page-intro">Select the songs you want — €1 each — then tap Send.</p>
+    <button class="back-btn" onclick="goBack()">← Back</button>
+  </div>
+
+  <!-- Sticky bar under header -->
+  <div class="bottom-bar">
+    <div class="counter">
+      <div class="counter-hint" id="counterHint">Pick your songs below ↓</div>
+      <div class="counter-total" id="counterTotal" style="display:none;"></div>
+    </div>
+    <button class="send-btn" id="sendBtn" disabled onclick="openModal()">Send →</button>
+  </div>
+
+  <div class="content">
+
+    <span class="category-label">Pop, Rock &amp; Contemporary</span>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Perfect</div><div class="song-composer">Ed Sheeran</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">All of Me</div><div class="song-composer">John Legend</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Hallelujah</div><div class="song-composer">Leonard Cohen</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Someone You Loved</div><div class="song-composer">Lewis Capaldi</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Someone Like You</div><div class="song-composer">Adele</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Rolling in the Deep</div><div class="song-composer">Adele</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Just the Way You Are</div><div class="song-composer">Bruno Mars</div></div><div class="song-price">€1</div></button>
+
+    <span class="category-label">Soundtracks &amp; Movie / Game Themes</span>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">The Lord of the Rings Theme</div><div class="song-composer">Howard Shore</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Schindler's List Theme</div><div class="song-composer">John Williams</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Game of Thrones Main Theme</div><div class="song-composer">Ramin Djawadi</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">The Godfather Theme (Speak Softly, Love)</div><div class="song-composer">Nino Rota</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Pirates of the Caribbean Theme</div><div class="song-composer">Klaus Badelt / Hans Zimmer</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">My Heart Will Go On (Titanic)</div><div class="song-composer">James Horner</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Now We Are Free (Gladiator)</div><div class="song-composer">Hans Zimmer</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Amélie Poulain (Comptine d'un autre été)</div><div class="song-composer">Yann Tiersen</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Super Mario Bros. Theme</div><div class="song-composer">Koji Kondo</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">20th Century Fox Fanfare</div><div class="song-composer">Alfred Newman</div></div><div class="song-price">€1</div></button>
+
+    <span class="category-label">International, Jazz &amp; Bossa Nova</span>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">What a Wonderful World</div><div class="song-composer">Louis Armstrong</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Con te Partirò (Time to Say Goodbye)</div><div class="song-composer">Andrea Bocelli</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Libertango</div><div class="song-composer">Astor Piazzolla</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Por una Cabeza</div><div class="song-composer">Carlos Gardel</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">The Girl from Ipanema</div><div class="song-composer">Tom Jobim / Vinícius de Moraes</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Chega de Saudade (No More Blues)</div><div class="song-composer">Tom Jobim</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Corcovado (Quiet Nights of Quiet Stars)</div><div class="song-composer">Tom Jobim</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Desafinado (Off Key)</div><div class="song-composer">Tom Jobim</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Bachianas Brasileiras No. 5</div><div class="song-composer">Heitor Villa-Lobos</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">The Little Train of the Caipira</div><div class="song-composer">Heitor Villa-Lobos</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Song from a Secret Garden</div><div class="song-composer">Secret Garden</div></div><div class="song-price">€1</div></button>
+
+    <span class="category-label">Classical &amp; Ceremonial</span>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Ave Maria</div><div class="song-composer">Charles Gounod / J.S. Bach</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Ave Maria</div><div class="song-composer">Franz Schubert</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Air on the G String</div><div class="song-composer">J.S. Bach</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Pachelbel's Canon in D</div><div class="song-composer">Johann Pachelbel</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Adagio in G Minor</div><div class="song-composer">Tomaso Albinoni</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">The Swan (Le Cygne)</div><div class="song-composer">Camille Saint-Saëns</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Thaïs Meditation</div><div class="song-composer">Jules Massenet</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Nessun Dorma</div><div class="song-composer">Giacomo Puccini</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Libiamo ne' lieti calici (La Traviata)</div><div class="song-composer">Giuseppe Verdi</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">A Little Night Music (Eine Kleine Nachtmusik)</div><div class="song-composer">W.A. Mozart</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Badinerie</div><div class="song-composer">J.S. Bach</div></div><div class="song-price">€1</div></button>
+    <button class="song-row" onclick="toggle(this)"><div class="song-check"><svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3.5 3.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="song-info"><div class="song-title">Bolero</div><div class="song-composer">Maurice Ravel</div></div><div class="song-price">€1</div></button>
+
+  </div>
+
+</div>
+
+<!-- Modal -->
+<div id="modal" class="modal-overlay">
+  <div class="modal-sheet">
+
+    <p class="modal-title">Almost done!</p>
+
+    <div class="modal-summary" id="modalSummary"></div>
+
+    <div id="modalForm">
+      <label class="modal-label" for="emailInput">Your email — I'll send the files here</label>
+      <input class="modal-email-input" type="email" id="emailInput" placeholder="your@email.com" autocomplete="email" />
+      <br /><br />
+      <button class="modal-send-btn" id="modalSendBtn" onclick="submitRequest()">Send my request</button>
+      <br /><br />
+      <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+    </div>
+
+    <div class="thankyou-box" id="thankyou">
+      <div class="check-circle">
+        <svg width="26" height="20" viewBox="0 0 26 20" fill="none">
+          <path d="M2 10l7 7L24 2" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <strong>Request sent!</strong>
+      <p>I'll email your recordings to <strong id="confirmEmail"></strong> once payment is received. Thank you!</p>
+      <br />
+      <button class="modal-cancel" onclick="closeModal()">Close</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  /* ── Replace this with your key from web3forms.com ── */
+  var ACCESS_KEY = 'f182a6e1-babd-4030-9143-1fbe03efcb00';
+
+  function goBack() {
+    try { window.top.location.href = '/busking/'; }
+    catch(e) { window.location.href = '/busking/'; }
+  }
+
+  function toggle(row) { row.classList.toggle('selected'); saveSelections(); updateBar(); }
+
+  function getSongs() {
+    return Array.from(document.querySelectorAll('button.song-row.selected')).map(function(row) {
+      return row.querySelector('.song-title').textContent + ' (' + row.querySelector('.song-composer').textContent + ')';
+    });
+  }
+
+  function updateBar() {
+    var songs = getSongs(), n = songs.length;
+    var btn = document.getElementById('sendBtn');
+    var hint = document.getElementById('counterHint');
+    var total = document.getElementById('counterTotal');
+    if (n === 0) {
+      hint.style.display = ''; total.style.display = 'none'; btn.disabled = true;
+    } else {
+      hint.style.display = 'none';
+      total.style.display = '';
+      total.innerHTML = '€' + n + '<span>' + n + ' song' + (n > 1 ? 's' : '') + '</span>';
+      btn.disabled = false;
+    }
+  }
+
+  function saveSelections() {
+    var keys = Array.from(document.querySelectorAll('button.song-row.selected')).map(function(row) {
+      return row.querySelector('.song-title').textContent + '|' + row.querySelector('.song-composer').textContent;
+    });
+    try { localStorage.setItem('cg_songs', JSON.stringify(keys)); } catch(e) {}
+  }
+
+  function openModal() {
+    var songs = getSongs(); if (!songs.length) return;
+    var n = songs.length;
+    var html = '<strong>' + n + ' song' + (n > 1 ? 's' : '') + ' — €' + n + ' total</strong>';
+    songs.forEach(function(s, i) { html += (i + 1) + '. ' + s + '<br>'; });
+    document.getElementById('modalSummary').innerHTML = html;
+    document.getElementById('modalForm').style.display = '';
+    document.getElementById('thankyou').style.display = 'none';
+    document.getElementById('modalSendBtn').disabled = false;
+    document.getElementById('modalSendBtn').textContent = 'Send my request';
+    try { var e = localStorage.getItem('cg_email'); if (e) document.getElementById('emailInput').value = e; } catch(err) {}
+    document.getElementById('modal').classList.add('open');
+    setTimeout(function() { document.getElementById('emailInput').focus(); }, 300);
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+  }
+
+  function submitRequest() {
+    var email = document.getElementById('emailInput').value.trim();
+    if (!email || !email.includes('@')) {
+      document.getElementById('emailInput').focus();
+      return;
+    }
+    try { localStorage.setItem('cg_email', email); } catch(e) {}
+
+    var songs = getSongs(), n = songs.length;
+    var btn = document.getElementById('modalSendBtn');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    var message = 'Customer email: ' + email + '\n\nSongs requested:\n' +
+      songs.map(function(s, i) { return (i + 1) + '. ' + s; }).join('\n') +
+      '\n\nTotal: €' + n;
+
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        access_key: ACCESS_KEY,
+        subject: 'Recording Request — ' + n + ' song' + (n > 1 ? 's' : '') + ' — €' + n,
+        from_name: 'Street Page',
+        replyto: email,
+        message: message
+      })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.success) {
+        document.getElementById('confirmEmail').textContent = email;
+        document.getElementById('modalForm').style.display = 'none';
+        document.getElementById('thankyou').style.display = 'flex';
+        try { localStorage.removeItem('cg_songs'); } catch(e) {}
+        document.querySelectorAll('button.song-row.selected').forEach(function(r) { r.classList.remove('selected'); });
+        updateBar();
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Send my request';
+        alert('Something went wrong. Please try again.');
+      }
+    })
+    .catch(function() {
+      btn.disabled = false;
+      btn.textContent = 'Send my request';
+      alert('No connection. Please try again.');
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', function() {
+    try {
+      var saved = JSON.parse(localStorage.getItem('cg_songs') || '[]');
+      if (saved.length) {
+        document.querySelectorAll('button.song-row').forEach(function(row) {
+          var key = row.querySelector('.song-title').textContent + '|' + row.querySelector('.song-composer').textContent;
+          if (saved.indexOf(key) !== -1) row.classList.add('selected');
+        });
+        updateBar();
+      }
+    } catch(e) {}
+  });
+</script>
+</body>
+</html>
