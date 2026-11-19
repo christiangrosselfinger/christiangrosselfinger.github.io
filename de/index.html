@@ -452,10 +452,11 @@ strong{font-weight:500;color:var(--ink)}
   border:1px solid var(--rule);background:var(--cream-2)}
 .ml p{max-width:52ch;margin:0 auto 22px}
 .ml-form{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.ml-form input[type=email]{flex:1 1 300px;max-width:380px;padding:14px 16px;font-family:'Inter',sans-serif;
+.ml-form input[type=email],.ml-form input[name=MMERGE5]{flex:1 1 300px;max-width:380px;padding:14px 16px;font-family:'Inter',sans-serif;
   font-size:14px;color:var(--ink);background:transparent;border:1px solid var(--rule);border-radius:2px}
-.ml-form input[type=email]::placeholder{color:var(--muted)}
-.ml-form input[type=email]:focus{outline:none;border-color:var(--gold-lt)}
+.ml-form input[type=email]::placeholder,.ml-form input[name=MMERGE5]::placeholder{color:var(--muted)}
+.ml-form input[type=email]:focus,.ml-form input[name=MMERGE5]:focus{outline:none;border-color:var(--gold-lt)}
+.ml-form input[name=MMERGE5]{flex:0 1 190px;max-width:190px}
 .ml-form button{padding:14px 30px;font-family:'Inter',sans-serif;font-size:12px;letter-spacing:.14em;
   text-transform:uppercase;cursor:pointer;background:var(--gold);color:#fff;border:1px solid var(--gold);
   border-radius:2px;transition:filter .25s ease}
@@ -518,7 +519,7 @@ footer a:hover{text-decoration:underline}
   .link-card{padding:16px 10px;font-size:11.5px}
   .btn{flex:1 1 auto;justify-content:center;padding:13px 20px;font-size:11.5px}
   .door-in{padding:26px 22px}
-  .ml-form input[type=email]{flex:1 1 100%}
+  .ml-form input[type=email],.ml-form input[name=MMERGE5]{flex:1 1 100%;max-width:380px}
   .ml-form button{width:100%}
 }
 @media(hover:none){
@@ -2001,6 +2002,7 @@ footer a:hover{text-decoration:underline}
 <p>Neue Termine, neue Aufnahmen und gelegentlich ein Gruß von unterwegs. Höchstens einmal pro Woche und niemals an Dritte weitergegeben.</p>
 <form action="https://wixsite.us5.list-manage.com/subscribe/post?u=64c858c77c691dbe12c92278c&amp;id=60ce4e72f7" class="ml-form" method="post" novalidate="" target="_blank">
 <input aria-label="E-Mail-Adresse" name="EMAIL" placeholder="ihre@email.com" required="" type="email">
+<input aria-label="Stadt (optional)" autocomplete="address-level2" name="MMERGE5" placeholder="Stadt (optional)" type="text"/>
 <div aria-hidden="true" class="ml-hp"><input name="b_64c858c77c691dbe12c92278c_60ce4e72f7" tabindex="-1" type="text" value=""/></div>
 <button name="subscribe" type="submit">Newsletter</button>
 </input></form>
